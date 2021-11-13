@@ -101,5 +101,19 @@ set.seed(10)
 iris_with_missing = iris %>% 
   map_df(~replace(.x, sample(1:150, 20), NA)) %>%
   mutate(Species = as.character(Species))
+
+#writing a function that replaces the NA's
+jf_iris = function(x) {
+   if (is.numeric(x)) { 
+   replace_na(x, mean(x, na.rm = TRUE))
+   }
+   else if (is.character(x)) 
+     {replace_na(x, "virginica")}
+}
+
+iris_completed = map(iris_with_missing, jf_iris)
+
+#double checking to see if there are any NA's
+is.na(iris_completed)
 ```
 
