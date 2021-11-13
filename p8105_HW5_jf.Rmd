@@ -89,7 +89,17 @@ ANSWER: Generally, we see that the experimental arm has a higher/increasing tren
 #
 
 ## Question 3
-```{r}
 
+#The code chunk below loads the iris dataset from the tidyverse package and introduces some missing values in each column. The purpose of this problem is to fill in those missing values.
+#For numeric variables, you should fill in missing values with the mean of non-missing values. For character variables, you should fill in missing values with "virginica"
+#Write a function that takes a vector as an argument; replaces missing values using the rules defined above; and returns the resulting vector. Apply this function to the columns of iris_with_missing using a map statement.
+
+```{r}
+#Loading the iris dataset so I can look at it
+set.seed(10)
+
+iris_with_missing = iris %>% 
+  map_df(~replace(.x, sample(1:150, 20), NA)) %>%
+  mutate(Species = as.character(Species))
 ```
 
